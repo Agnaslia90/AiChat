@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -66,7 +67,7 @@ fun ChatScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp)
-                    .padding(bottom = 80.dp),
+                    .padding(bottom = 90.dp),
                 state = listState
             ) {
                 items(uiState.messages) { message ->
@@ -92,12 +93,14 @@ fun ChatScreen(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .imePadding()
+                    .navigationBarsPadding()
                     .background(MaterialTheme.colorScheme.surface)
+                    .padding(vertical = 24.dp)
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     OutlinedTextField(
@@ -107,7 +110,8 @@ fun ChatScreen(
                         },
                         modifier = Modifier
                             .weight(1f)
-                            .padding(end = 8.dp),
+                            .padding(end = 12.dp)
+                            .padding(start = 12.dp),
                         placeholder = { Text("Escribe un mensaje...") },
                         maxLines = 3
                     )
@@ -115,7 +119,9 @@ fun ChatScreen(
                     IconButton(
                         onClick = { 
                             viewModel.sendMessage(uiState.currentMessage)
-                        }
+                        },
+                        modifier = Modifier
+                            .padding(4.dp)
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.Send,
@@ -158,7 +164,7 @@ fun MessageItem(message: Message) {
             Text(
                 text = message.content,
                 color = textColor,
-                modifier = Modifier.padding(12.dp)
+                modifier = Modifier.padding(8.dp)
             )
         }
     }
