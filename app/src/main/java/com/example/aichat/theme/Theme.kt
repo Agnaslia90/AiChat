@@ -1,4 +1,4 @@
-package com.example.aichat.ui.theme
+package values.theme
 
 import android.app.Activity
 import android.os.Build
@@ -16,15 +16,15 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = values.theme.Purple80,
+    secondary = values.theme.PurpleGrey80,
+    tertiary = values.theme.Pink80
 )
 
 val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = values.theme.Purple40,
+    secondary = values.theme.PurpleGrey40,
+    tertiary = values.theme.Pink40
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -64,7 +64,7 @@ fun AIChatTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = values.theme.Typography,
         content = content
     )
 }

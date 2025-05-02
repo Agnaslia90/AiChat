@@ -1,4 +1,4 @@
-package com.example.aichat.ui.theme
+package values.theme
 
 import androidx.compose.ui.graphics.Color
 
