@@ -33,6 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.aichat.domain.model.Message
@@ -141,12 +142,12 @@ fun MessageItem(message: Message) {
     val backgroundColor = if (message.isFromUser) {
         MaterialTheme.colorScheme.primaryContainer
     } else {
-        MaterialTheme.colorScheme.secondaryContainer
+        MaterialTheme.colorScheme.surfaceContainer
     }
     val textColor = if (message.isFromUser) {
         MaterialTheme.colorScheme.onPrimaryContainer
     } else {
-        MaterialTheme.colorScheme.onSecondaryContainer
+        MaterialTheme.colorScheme.onSurface
     }
 
     Box(
@@ -159,7 +160,13 @@ fun MessageItem(message: Message) {
             modifier = Modifier
                 .padding(horizontal = 8.dp)
                 .clip(RoundedCornerShape(12.dp)),
-            colors = CardDefaults.cardColors(containerColor = backgroundColor)
+            colors = CardDefaults.cardColors(containerColor = backgroundColor),
+            shape = RoundedCornerShape(
+                topStart = 16.dp,
+                topEnd = 16.dp,
+                bottomStart = if(message.isFromUser) 16.dp else 4.dp,
+                bottomEnd = if(message.isFromUser) 4.dp else 16.dp,
+            )
         ) {
             Text(
                 text = message.content,
