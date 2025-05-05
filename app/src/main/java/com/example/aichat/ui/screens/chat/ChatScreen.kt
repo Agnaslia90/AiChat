@@ -24,14 +24,17 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,6 +51,7 @@ fun ChatScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     val systemUiController = rememberSystemUiController()
     val useDarkIcons = true
@@ -65,12 +69,19 @@ fun ChatScreen(
         }
     }
 
+    LaunchedEffect(uiState.error) {
+        uiState.error?.let {
+            snackbarHostState.showSnackbar(it)
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("AI Chat") },
             )
-        }
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { paddingValues ->
         Box(
             modifier = Modifier
@@ -126,7 +137,8 @@ fun ChatScreen(
                             .padding(end = 12.dp)
                             .padding(start = 12.dp),
                         placeholder = { Text("Escribe un mensaje...") },
-                        maxLines = 3
+                        maxLines = 3,
+                        enabled = !uiState.isLoading
                     )
                     
                     IconButton(
@@ -134,7 +146,8 @@ fun ChatScreen(
                             viewModel.sendMessage(uiState.currentMessage)
                         },
                         modifier = Modifier
-                            .padding(4.dp)
+                            .padding(4.dp),
+                        enabled = !uiState.isLoading
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.Send,
