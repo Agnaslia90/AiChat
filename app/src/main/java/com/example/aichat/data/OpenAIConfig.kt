@@ -2,7 +2,6 @@ package com.example.aichat.data
 
 import com.aallam.openai.api.chat.ChatCompletionRequest
 import com.aallam.openai.api.chat.ChatMessage
-import com.aallam.openai.api.chat.ChatRole
 import com.aallam.openai.api.model.ModelId
 import com.aallam.openai.client.OpenAI
 import com.aallam.openai.client.OpenAIConfig
@@ -31,7 +30,7 @@ object OpenAIConfig {
     @Singleton
     fun provideChatCompletionRequest(messages: List<ChatMessage>): ChatCompletionRequest {
         return ChatCompletionRequest(
-            model = ModelId("gpt-3.5-turbo"),
+            model = ModelId("gpt-4o-mini"),
             messages = messages
         )
     }
